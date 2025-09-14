@@ -9,8 +9,8 @@ import cookieParser from 'cookie-parser';
 // import db connection
 import connectToDB from './config/db.js';
 
-// import middlewares
-import logger from './middleware/logger.js';
+// // import middlewares
+// import logger from './middleware/logger.js';
 
 // import routes
 import userRoutes from './routes/user.js';
@@ -48,19 +48,19 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // serve static files
-app.use(express.static(path.join(PATH, 'dist')));
+// app.use(express.static(path.join(PATH, 'dist')));
 
 // use middlewares
 
-app.use(logger);
+// app.use(logger);
 
 // use routes
 app.use('/api', userRoutes);
 app.use('/api', musicRoutes);
 
-app.get('*', (req, res) => {
-    res.sendFile(path.join(PATH, 'dist', 'index.html'));
-});
+// app.get('*', (req, res) => {
+//     res.sendFile(path.join(PATH, 'dist', 'index.html'));
+// });
 
 // handle 404
 app.use('*', (req, res) => {
