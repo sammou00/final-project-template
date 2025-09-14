@@ -33,7 +33,7 @@ const app = express();
 // cors allow the server to accept request from different origin
 const allowedOrigins = process.env.CORS_ORIGINS
     ? process.env.CORS_ORIGINS.split(',')
-    : ['http://localhost:5173'];
+    : ['http://localhost:5173', 'https://final-project-template.onrender.com'];
 
 app.use(
     cors({
@@ -48,7 +48,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // serve static files
-// app.use(express.static(path.join(PATH, 'dist')));
+app.use(express.static(path.join(PATH, 'dist')));
 
 // use middlewares
 
@@ -58,9 +58,9 @@ app.use(cookieParser());
 app.use('/api', userRoutes);
 app.use('/api', musicRoutes);
 
-// app.get('*', (req, res) => {
-//     res.sendFile(path.join(PATH, 'dist', 'index.html'));
-// });
+app.get('*', (req, res) => {
+    res.sendFile(path.join(PATH, 'dist', 'index.html'));
+});
 
 // handle 404
 app.use('*', (req, res) => {
