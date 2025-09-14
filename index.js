@@ -13,6 +13,8 @@ import connectToDB from './config/db.js';
 import logger from './middleware/logger.js';
 
 // import routes
+import userRoutes from './routes/user.js';
+import musicRoutes from './routes/music.js';
 
 // load environment variables
 dotenv.config();
@@ -49,17 +51,16 @@ app.use(cookieParser());
 app.use(express.static(path.join(PATH, 'dist')));
 
 // use middlewares
-if (process.env.NODE_ENV === 'development') {
-    app.use(logger);
-}
+
+app.use(logger);
 
 // use routes
+app.use('/api', userRoutes);
+app.use('/api', musicRoutes);
 
-if (process.env.NODE_ENV === 'production') {
-    app.get('*', (req, res) => {
-        res.sendFile(path.join(PATH, 'dist', 'index.html'));
-    });
-}
+app.get('*', (req, res) => {
+    res.sendFile(path.join(PATH, 'dist', 'index.html'));
+});
 
 // handle 404
 app.use('*', (req, res) => {
